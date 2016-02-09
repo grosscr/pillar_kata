@@ -31,6 +31,15 @@ is($bsc->get_end_hour(), undef, "Verify end hour didn't save");
 $bsc->set_start_time("18:00");
 is($bsc->get_start_time(), "18:00", "Retrieved start time of 18:00");
 is($bsc->get_start_hour(), "18", "Got 18 as hour for start time");
+
 $bsc->set_end_time("23:00");
 is($bsc->get_end_time(), "23:00", "Retrieved end time of 23:00");
 is($bsc->get_end_hour(), "23", "Got 23 as hour for end time");
+
+# Test invalid time
+ok(!$bsc->set_start_time('abc'), "Fail to set start time for invalid time");
+ok(!$bsc->set_start_time('16'), "Fail to set start time for invalid time");
+ok(!$bsc->set_start_time(), "Fail to set start time for invalid time");
+ok(!$bsc->set_end_time('abc'), "Fail to set end time for invalid time");
+ok(!$bsc->set_end_time('16'), "Fail to set end time for invalid time");
+ok(!$bsc->set_end_time(), "Fail to set end time for invalid time");
