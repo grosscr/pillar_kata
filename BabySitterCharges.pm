@@ -17,7 +17,7 @@ sub set_start_time($) {
     my $hour = $tmp[0];
 
     # Add 12 to the hour if it's in the PM
-    if ( $start_time ~~ /[PM]/ ) {
+    if ( $start_time ~~ /PM/ ) {
         $hour += 12;
     }
 
@@ -34,9 +34,43 @@ sub set_start_time($) {
     }
 }
 
+sub set_end_time($) {
+    my ( $self, $end_time ) = @_;
+
+    my @tmp = split(':',$end_time);
+    my $hour = $tmp[0];
+
+    # Add 12 to the hour if it's in the PM
+    if ( $end_time ~~ /PM/ ) {
+        $hour += 12;
+    }
+    else {
+        # It's in the morning, so make the hour be for
+        # the next day so subtracting is easier later
+        $hour += 24;
+    }
+
+    if ( $hour <= 28 ) {
+        $self->{end_time} = $end_time;
+        $self->{end_hour} = $hour;
+        return 1;
+    }
+    else {
+        # Don't save it if it's after 4 AM
+        $self->{end_time} = undef;
+        $self->{end_hour} = undef;
+        return 0;
+    }
+}
+
 sub get_start_time() {
     my ( $self ) = @_;
     return $self->{start_time};
+}
+
+sub get_end_time() {
+    my ( $self ) = @_;
+    return $self->{end_time};
 }
 
 1;
