@@ -10,4 +10,8 @@ sub new {
     return $self;
 };
 
+sub set_start_time($) {
+    return 1;
+}
+
 1;
