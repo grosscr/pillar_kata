@@ -11,7 +11,14 @@ sub new {
 };
 
 sub set_start_time($) {
+    my ( $self, $start_time ) = @_;
+    $self->{start_time} = $start_time;
     return 1;
+}
+
+sub get_start_time() {
+    my ( $self ) = @_;
+    return $self->{start_time};
 }
 
 1;
