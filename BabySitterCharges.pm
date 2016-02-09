@@ -73,4 +73,15 @@ sub get_end_time() {
     return $self->{end_time};
 }
 
+# Functions for testing only
+
+sub get_start_hour() {
+    my ( $self ) = @_;
+    return $self->{start_hour};
+}
+
+sub get_end_hour() {
+    my ( $self ) = @_;
+    return $self->{end_hour};
+}
 1;
