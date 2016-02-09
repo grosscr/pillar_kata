@@ -44,7 +44,7 @@ sub set_end_time($) {
     if ( $end_time ~~ /PM/ ) {
         $hour += 12;
     }
-    else {
+    elsif ( $hour < 12 ) {
         # It's in the morning, so make the hour be for
         # the next day so subtracting is easier later
         $hour += 24;

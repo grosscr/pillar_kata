@@ -27,3 +27,10 @@ ok(!$bsc->set_end_time("5:00 AM"), "Setting end time to 5:00 AM is un-successful
 is($bsc->get_end_time(), undef, "Verify end time didn't save");
 is($bsc->get_end_hour(), undef, "Verify end hour didn't save");
 
+# Test military time
+$bsc->set_start_time("18:00");
+is($bsc->get_start_time(), "18:00", "Retrieved start time of 18:00");
+is($bsc->get_start_hour(), "18", "Got 18 as hour for start time");
+$bsc->set_end_time("23:00");
+is($bsc->get_end_time(), "23:00", "Retrieved end time of 23:00");
+is($bsc->get_end_hour(), "23", "Got 23 as hour for end time");
