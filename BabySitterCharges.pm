@@ -30,8 +30,6 @@ sub set_start_time($) {
     }
     else {
         # Don't save it if it's before 5 PM
-        $self->{start_time} = undef;
-        $self->{start_hour} = undef;
         return 0;
     }
 }
@@ -61,8 +59,6 @@ sub set_end_time($) {
     }
     else {
         # Don't save it if it's after 4 AM
-        $self->{end_time} = undef;
-        $self->{end_hour} = undef;
         return 0;
     }
 }
