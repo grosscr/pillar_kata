@@ -49,3 +49,29 @@ ok(!$bsc->set_start_time(), "Fail to set start time for invalid time");
 ok(!$bsc->set_end_time('abc'), "Fail to set end time for invalid time");
 ok(!$bsc->set_end_time('16'), "Fail to set end time for invalid time");
 ok(!$bsc->set_end_time(), "Fail to set end time for invalid time");
+ok(!$bsc->set_bed_time('abc'), "Fail to set bed time for invalid time");
+ok(!$bsc->set_bed_time('16'), "Fail to set bed time for invalid time");
+ok(!$bsc->set_bed_time(), "Fail to set bed time for invalid time");
+
+# Setting bed time
+
+$bsc = new BabySitterCharges();
+ok(!$bsc->set_bed_time("9:00 PM"), "Fail to set bedtime when there's no start or end time");
+$bsc->set_start_time("5:00 PM");
+ok(!$bsc->set_bed_time("9:00 PM"), "Fail to set bedtime when there's no end time");
+
+$bsc = new BabySitterCharges();
+$bsc->set_end_time("1:00 AM");
+ok(!$bsc->set_bed_time("9:00 PM"), "Fail to set bedtime when there's no start time");
+
+$bsc = new BabySitterCharges();
+$bsc->set_start_time("8:00 PM");
+$bsc->set_end_time("1:00 AM");
+
+ok(!$bsc->set_bed_time("7:00 PM"), "Fail to set bedtime when it's not between start and end time");
+is($bsc->get_bed_time(), undef, "Verify set bed time didn't save");
+is($bsc->get_bed_hour(), undef, "Verify set bed hour didn't save");
+
+ok($bsc->set_bed_time("10:00 PM"), "Setting bed time between start and end time successful");
+is($bsc->get_bed_time(), "10:00 PM", "Retrieve bed time of 10:00 PM");
+is($bsc->get_bed_hour(), "22", "Got 22 as hour for bed time");

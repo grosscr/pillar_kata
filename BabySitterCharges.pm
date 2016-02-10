@@ -63,6 +63,33 @@ sub set_end_time($) {
     }
 }
 
+sub set_bed_time($) {
+    my ( $self, $bed_time ) = @_;
+
+    return 0 unless $bed_time && $bed_time =~ /\:/;
+
+    # Can't set bedtime unless we have start and end time
+    return 0 unless $self->{start_time} && $self->{end_time};
+
+    my @tmp = split(':',$bed_time);
+    my $hour = $tmp[0];
+
+    # Add 12 to the hour if it's in the PM
+    if ( $bed_time =~ /PM/ ) {
+        $hour += 12;
+    }
+
+    if ( $hour > $self->{start_hour} && $hour < $self->{end_hour} ) {
+        $self->{bed_time} = $bed_time;
+        $self->{bed_hour} = $hour;
+        return 1;
+    }
+    else {
+        # Don't save it if it's not between the start and end times
+        return 0;
+    }
+}
+
 sub get_start_time() {
     my ( $self ) = @_;
     return $self->{start_time};
@@ -71,6 +98,11 @@ sub get_start_time() {
 sub get_end_time() {
     my ( $self ) = @_;
     return $self->{end_time};
+}
+
+sub get_bed_time() {
+    my ( $self ) = @_;
+    return $self->{bed_time};
 }
 
 # Functions for testing only
@@ -83,5 +115,10 @@ sub get_start_hour() {
 sub get_end_hour() {
     my ( $self ) = @_;
     return $self->{end_hour};
+}
+
+sub get_bed_hour() {
+    my ( $self ) = @_;
+    return $self->{bed_hour};
 }
 1;
