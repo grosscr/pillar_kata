@@ -13,13 +13,13 @@ sub new {
 sub set_start_time($) {
     my ( $self, $start_time ) = @_;
 
-    return 0 unless $start_time && $start_time ~~ /\:/;
+    return 0 unless $start_time && $start_time =~ /\:/;
 
     my @tmp = split(':',$start_time);
     my $hour = $tmp[0];
 
     # Add 12 to the hour if it's in the PM
-    if ( $start_time ~~ /PM/ ) {
+    if ( $start_time =~ /PM/ ) {
         $hour += 12;
     }
 
@@ -37,13 +37,13 @@ sub set_start_time($) {
 sub set_end_time($) {
     my ( $self, $end_time ) = @_;
 
-    return 0 unless $end_time && $end_time ~~ /\:/;
+    return 0 unless $end_time && $end_time =~ /\:/;
 
     my @tmp = split(':',$end_time);
     my $hour = $tmp[0];
 
     # Add 12 to the hour if it's in the PM
-    if ( $end_time ~~ /PM/ ) {
+    if ( $end_time =~ /PM/ ) {
         $hour += 12;
     }
     elsif ( $hour < 12 ) {
