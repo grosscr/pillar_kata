@@ -80,6 +80,12 @@ sub set_bed_time($) {
     }
 
     if ( $hour > $self->{start_hour} && $hour < $self->{end_hour} ) {
+
+        if ( $hour >= 24 ) {
+            # No kid that still needs babysat
+            # should be up past midnight
+            return 0;
+        }
         $self->{bed_time} = $bed_time;
         $self->{bed_hour} = $hour;
         return 1;
@@ -105,7 +111,7 @@ sub get_bed_time() {
     return $self->{bed_time};
 }
 
-# Functions for testing only
+###### Functions for testing only ######
 
 sub get_start_hour() {
     my ( $self ) = @_;
