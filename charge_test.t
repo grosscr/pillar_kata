@@ -83,3 +83,12 @@ is($bsc->get_bed_hour(), undef, "Verify set bed hour didn't save");
 ok($bsc->set_bed_time("10:00 PM"), "Setting bed time between start and end time successful");
 is($bsc->get_bed_time(), "10:00 PM", "Retrieve bed time of 10:00 PM");
 is($bsc->get_bed_hour(), "22", "Got 22 as hour for bed time");
+
+is($bsc->calculate(), '$56.00', 'Got $56.00 for the night');
+
+$bsc = new BabySitterCharges();
+$bsc->set_start_time("5:00 PM");
+$bsc->set_end_time("4:00 AM");
+$bsc->set_bed_time("9:00 PM");
+
+is($bsc->calculate(), '$136.00', 'Got $136.00 for the night');

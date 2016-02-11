@@ -3,12 +3,28 @@ package BabySitterCharges;
 use strict;
 use warnings;
 
+use constant START_PAY => 12;
+use constant BED_PAY => 8;
+use constant MIDNIGHT_PAY => 16;
+
 sub new {
     my ( $class, %args ) = @_;
 
     my $self = bless{}, $class;
     return $self;
 };
+
+sub calculate() {
+    my ( $self ) = @_;
+
+    my $total = 0;
+
+    $total += START_PAY * ( $self->{bed_hour} - $self->{start_hour} );
+    $total += BED_PAY * ( 24 - $self->{bed_hour} );
+    $total += MIDNIGHT_PAY * ( $self->{end_hour} - 24 );
+
+    return '$' . sprintf('%.2f', $total);
+}
 
 sub set_start_time($) {
     my ( $self, $start_time ) = @_;
